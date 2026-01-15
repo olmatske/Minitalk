@@ -9,7 +9,6 @@ int	main(int argc, char **argv)
 		return (1);
 	pid = ft_atoi(argv[1]);
 	bit_convert(pid, argv[2]);
-	// kill(pid, sigusr1/sigusr2)
 }
 
 void	bit_convert(int pid, char *msg)
@@ -21,11 +20,11 @@ void	bit_convert(int pid, char *msg)
 	i = 0;
 	while (msg[i])
 	{
-		k = 8;
+		k = 7;
 		c = msg[i];
-		while (k != 0)
+		while (k >= 0)
 		{
-			if (c >> i & 1)
+			if (c >> k & 1)
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
@@ -35,10 +34,9 @@ void	bit_convert(int pid, char *msg)
 		i++;
 	}
 	k = 8;
-	while (k-- != 0) // k-- or --k ??????
+	while (k-- != 0)
+	{
 		kill(pid, SIGUSR1);
+		usleep(100);
+	}
 }
-
-
-// function to convert string into bits
-// set destination as pid

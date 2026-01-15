@@ -6,28 +6,28 @@ char	*msg;
 
 void	signal_handler(int signal)
 {
-	printf("Checkpoint sighandler\n");
 	static char	c;
 	static int	bit;
 
-	c = 0;
-	bit = 0;
 	if (signal == SIGUSR2)
 	{
 		c |= (0x80 >> bit);
-		printf("%d\n", signal);
+		// printf("1\n");
 	}
 	else if (signal == SIGUSR1)
 	{
 		c &= ~(0x80 >> bit);
-		printf("%d\n", signal);
+		// printf("0\n");
 	}
 	bit++;
-	printf("meow\n");
 	if (bit == 8)
 	{
 		msg_append(c);
-		printf("This is the char:%c\n", c);
+		if (c == '\0')
+		{
+			printf("%s\n", msg);
+			exit(0);
+		}
 		c = 0;
 		bit = 0;
 	}
@@ -36,13 +36,19 @@ void	signal_handler(int signal)
 // main function writes singals into a char and appends into a msg, has 8 iterations
 void	msg_append(char c)
 {
-	ft_strlcat(msg, &c, ft_strlen(msg));
-	printf("%s\n", msg);
+	int	len;
+
+	len = ft_strlen(msg);
+	msg[len] = c;
+	msg[len + 1] = '\0';
 }
 
 int	main(void)
 {
 	printf("Server PID: %d\n", getpid());
+	msg = ft_calloc(1024, sizeof(char));
+		if (!msg)
+			return (1);
 	signal(SIGUSR1, signal_handler);
 	signal(SIGUSR2, signal_handler);
 	while (1)
