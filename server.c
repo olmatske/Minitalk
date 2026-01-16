@@ -6,7 +6,7 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:42:00 by olmatske          #+#    #+#             */
-/*   Updated: 2026/01/16 17:43:54 by olmatske         ###   ########.fr       */
+/*   Updated: 2026/01/16 18:13:35 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,21 @@ void	msg_append(char c)
 	g_msg[len + 1] = '\0';
 }
 
+void	sigint_handler(int signal)
+{
+	(void)signal;
+	if (g_msg)
+		free(g_msg);
+	exit(0);
+}
+
 int	main(void)
 {
 	ft_printf("Server PID: %d\n", getpid());
 	g_msg = NULL;
 	signal(SIGUSR1, signal_handler);
 	signal(SIGUSR2, signal_handler);
+	signal(SIGINT, sigint_handler);
 	while (1)
 		pause();
 	return (0);
