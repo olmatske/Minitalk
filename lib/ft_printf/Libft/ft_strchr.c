@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/16 17:42:44 by olmatske          #+#    #+#             */
-/*   Updated: 2026/01/16 17:43:02 by olmatske         ###   ########.fr       */
+/*   Created: 2025/07/08 21:59:28 by olmatske          #+#    #+#             */
+/*   Updated: 2025/07/18 15:15:05 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <stdio.h>
-# include <unistd.h>
-# include "./lib/ft_printf/ft_printf.h"
+char	*ft_strchr(const char *str, int c)
+{
+	while (*str && *str != (char)c)
+		(str)++;
+	if (*str == (char)c)
+		return ((char *)str);
+	return (NULL);
+}
 
-void	msg_append(char c);
-void	signal_handler(int singal);
-void	bit_convert(int pid, char *msg);
-
-#endif
+// int	main(void)
+// {
+// 	// char str[] = "Creeper, Aww Man!";
+// 	// printf("%s\n", strchr(str, 44)); // 44 is ,
+// 	printf("%s\n", ft_strchr("teste", 0));
+// 	return (0);
+// }

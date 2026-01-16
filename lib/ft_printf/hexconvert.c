@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   hexconvert.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/16 17:42:44 by olmatske          #+#    #+#             */
-/*   Updated: 2026/01/16 17:43:02 by olmatske         ###   ########.fr       */
+/*   Created: 2025/07/30 17:53:09 by olmatske          #+#    #+#             */
+/*   Updated: 2025/08/03 15:19:35 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "ft_printf.h"
 
-# include <signal.h>
-# include <stdio.h>
-# include <unistd.h>
-# include "./lib/ft_printf/ft_printf.h"
+int	hexconvert(unsigned int n, char *hex)
+{
+	char	res;
+	int		num;
 
-void	msg_append(char c);
-void	signal_handler(int singal);
-void	bit_convert(int pid, char *msg);
-
-#endif
+	num = 0;
+	if (n >= 16)
+		num += hexconvert(n / 16, hex);
+	if (num == -1)
+		return (-1);
+	res = hex[n % 16];
+	if (write(1, &res, 1) == -1)
+		return (-1);
+	return (num + 1);
+}

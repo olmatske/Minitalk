@@ -1,8 +1,18 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/16 17:42:00 by olmatske          #+#    #+#             */
+/*   Updated: 2026/01/16 17:43:54 by olmatske         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minitalk.h"
 
-char	*msg;
+char	*g_msg;
 
 void	signal_handler(int signal)
 {
@@ -10,45 +20,39 @@ void	signal_handler(int signal)
 	static int	bit;
 
 	if (signal == SIGUSR2)
-	{
 		c |= (0x80 >> bit);
-		// printf("1\n");
-	}
 	else if (signal == SIGUSR1)
-	{
 		c &= ~(0x80 >> bit);
-		// printf("0\n");
-	}
 	bit++;
 	if (bit == 8)
 	{
+		if (!g_msg)
+			g_msg = ft_calloc(70000, sizeof(char));
 		msg_append(c);
 		if (c == '\0')
 		{
-			printf("%s\n", msg);
-			exit(0);
+			printf("%s\n", g_msg);
+			free(g_msg);
+			g_msg = NULL;
 		}
 		c = 0;
 		bit = 0;
 	}
 }
 
-// main function writes singals into a char and appends into a msg, has 8 iterations
 void	msg_append(char c)
 {
 	int	len;
 
-	len = ft_strlen(msg);
-	msg[len] = c;
-	msg[len + 1] = '\0';
+	len = ft_strlen(g_msg);
+	g_msg[len] = c;
+	g_msg[len + 1] = '\0';
 }
 
 int	main(void)
 {
-	printf("Server PID: %d\n", getpid());
-	msg = ft_calloc(1024, sizeof(char));
-		if (!msg)
-			return (1);
+	ft_printf("Server PID: %d\n", getpid());
+	g_msg = NULL;
 	signal(SIGUSR1, signal_handler);
 	signal(SIGUSR2, signal_handler);
 	while (1)

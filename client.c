@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/16 17:41:52 by olmatske          #+#    #+#             */
+/*   Updated: 2026/01/16 17:41:56 by olmatske         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minitalk.h"
 
@@ -13,22 +24,20 @@ int	main(int argc, char **argv)
 
 void	bit_convert(int pid, char *msg)
 {
-	int		i;
-	int		k;
-	char	c;
+	int	i;
+	int	k;
 
 	i = 0;
 	while (msg[i])
 	{
 		k = 7;
-		c = msg[i];
 		while (k >= 0)
 		{
-			if (c >> k & 1)
+			if (msg[i] >> k & 1)
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
-			usleep(100);
+			usleep(500);
 			k--;
 		}
 		i++;
@@ -37,6 +46,6 @@ void	bit_convert(int pid, char *msg)
 	while (k-- != 0)
 	{
 		kill(pid, SIGUSR1);
-		usleep(100);
+		usleep(500);
 	}
 }

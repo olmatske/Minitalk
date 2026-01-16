@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/16 17:42:44 by olmatske          #+#    #+#             */
-/*   Updated: 2026/01/16 17:43:02 by olmatske         ###   ########.fr       */
+/*   Created: 2025/07/08 21:53:29 by olmatske          #+#    #+#             */
+/*   Updated: 2025/07/17 19:47:10 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <stdio.h>
-# include <unistd.h>
-# include "./lib/ft_printf/ft_printf.h"
+int	ft_tolower(int c)
+{
+	if (c >= 65 && c <= 90)
+		return (c +32);
+	else
+		return (c);
+}
 
-void	msg_append(char c);
-void	signal_handler(int singal);
-void	bit_convert(int pid, char *msg);
+// int	main(void)
+// {
+// 	printf("%c\n", tolower(100));
+// 	printf("%c\n", ft_tolower(100));
+// 	return (0);
+// }
 
-#endif
+// return ((c >= 65 && c <= 90) ? (c + 32) : c);

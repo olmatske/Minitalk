@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/16 17:42:44 by olmatske          #+#    #+#             */
-/*   Updated: 2026/01/16 17:43:02 by olmatske         ###   ########.fr       */
+/*   Created: 2025/07/21 19:35:46 by olmatske          #+#    #+#             */
+/*   Updated: 2025/07/21 19:51:46 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <stdio.h>
-# include <unistd.h>
-# include "./lib/ft_printf/ft_printf.h"
+void	ft_putnbr_fd(int n, int fd)
+{
+	long	num;
 
-void	msg_append(char c);
-void	signal_handler(int singal);
-void	bit_convert(int pid, char *msg);
-
-#endif
+	num = n;
+	if (num < 0)
+	{
+		ft_putchar_fd('-', fd);
+		num *= -1;
+	}
+	if (num > 9)
+	{
+		ft_putnbr_fd(num / 10, fd);
+		ft_putnbr_fd(num % 10, fd);
+	}
+	else
+	{
+		ft_putchar_fd(num + '0', fd);
+	}
+}

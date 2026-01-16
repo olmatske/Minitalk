@@ -2,32 +2,42 @@
 SOURCES = server.c client.c
 OBJECTS = $(SOURCES:.c=.o)
 
+PRINTF_DIR = ./lib/ft_printf/
+PRINTF_LIB = $(PRINTF_DIR)libftprintf.a
+
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
+
+$(PRINTF_LIB):
+	make -C $(PRINTF_DIR)
 
 all: server client
 
 bonus: server client
 
-server: server.o libft
-	$(CC) -o $@ $< -Llibft -lft
+server: server.o libft ftprintf
+	$(CC) -o $@ $< -Llib/libft -lft -Llib/ft_printf -lftprintf
 
 client: client.o libft
-	$(CC) -o $@ $< -Llibft -lft
+	$(CC) -o $@ $< -Llib/libft -lft
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) $?
 
 libft:
-	make -C libft
+	make -C lib/libft
+
+ftprintf:
+	make -C lib/ft_printf
 
 clean:
 	rm -f $(OBJECTS)
-	make -C libft clean
+	make -C lib/libft clean
+	make -C lib/ft_printf clean
 	
 fclean: clean
-	rm -f server client libft/libft.a
+	rm -f server client lib/libft/libft.a lib/ft_printf/libftprintf.a
 
 re: fclean all
 
-.PHONY: all bonus libft clean fclean re
+.PHONY: all bonus libft ftprintf clean fclean re
