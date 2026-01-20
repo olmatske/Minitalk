@@ -88,4 +88,10 @@ General
 	- [X] write solid readme
 	- [X] test it out
 	- [X] tweak makefile?
+
 ```
+
+## Fixes
+	- [ ] Dynamic allocation instead of static!
+	- [ ] implement handshake (aka bonus)
+	- [ ] fix Makefile
