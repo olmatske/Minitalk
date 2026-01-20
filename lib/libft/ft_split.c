@@ -6,7 +6,7 @@
 /*   By: olmatske <olmatske@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:11:30 by olmatske          #+#    #+#             */
-/*   Updated: 2025/07/23 17:12:10 by olmatske         ###   ########.fr       */
+/*   Updated: 2025/12/22 18:28:40 by olmatske         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,3 @@ static void	ft_free(char **res)
 	}
 	free(res);
 }
-
-// int	main(void)
-// {
-// 	char	str[] = "Hello Bitch I love marshmallows";
-// 	printf("%s\n", ft_split(str, ' ')[1]);
-// 	return (0);
-// }

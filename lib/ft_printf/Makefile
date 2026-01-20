@@ -3,22 +3,21 @@ NAME = libftprintf.a
 SRCS = ft_printf.c ft_putchar.c ft_putnbr.c ft_putstr.c hexconvert.c ptrconvert.c \
 		ft_unsignedputnbr.c
 
-LIBFT_DIR = ./Libft
-LIBFT = ./Libft/libft.a
+LIBFT_DIR = ../Libft
+LIBFT = $(LIBFT_DIR)/libft.a
 
 OBJCS = $(SRCS:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -I..
 RM = rm -f
 
 all: $(NAME)
 
 $(LIBFT) :
-	make -C ./Libft
+	make -C $(LIBFT_DIR)
 
-$(NAME): $(OBJCS) $(LIBFT)
-	cp $(LIBFT) $(NAME)
+$(NAME): $(OBJCS)
 	ar rcs $(NAME) $(OBJCS)
 
 clean:
